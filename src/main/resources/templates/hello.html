@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>你好</h1>
+<h1 th:utext="${name}"></h1>
+<p th:utext="${name2}"></p>
+年龄：<input type="text" th:value="${age}">
+<div>
+    <p th:text="${age}" th:each="age :${ages}"></p>
+</div>
+<div  th:each="age:${ages}">
+    <p th:text="${age}"></p>
+</div>
+
+</body>
+</html>
