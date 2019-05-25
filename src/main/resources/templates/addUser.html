@@ -51,39 +51,22 @@
 
 
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<h2><a class="btn btn-success" th:text="添加员工" href="#" th:href="@{/user/addUser}"></a></h2>
-					<div class="table-responsive">
-						<table class="table table-striped table-sm">
-							<thead>
-								<tr>
-									<th>id</th>
-									<th>lastName</th>
-									<th>email</th>
-									<th>gender</th>
-									<th>department</th>
-									<th>birth</th>
-									<th>操作</th>
-								</tr>
-							</thead>
-							<tbody>
+					<form >
+						<label >用户 id :</label>
+						<input type="text" class="form-control" id="id" placeholder="用户id"><br/>
+						<label >用户名 :</label>
+						<input type="text" class="form-control" id="lastName" placeholder="用户名"><br/>
+						<label >邮箱:</label>
+						<input type="email" class="form-control" id="email" placeholder="邮箱"><br/>
+						<label >部门:</label>
+						<select class="form-control">
+							<option th:each="dep:${deps}" th:text="${dep.departmentName}"></option>
+						</select>
+						<label >生日:</label>
+						<input type="text " class="form-control" id="birthday" placeholder="出生日期"><br/>
 
-								<tr th:each="emplist:${EmpLists}">
-									<td th:text="${emplist.id}"></td>
-									<td th:text="${emplist.lastName}"></td>
-									<td th:text="${emplist.email}"></td>
-									<td th:text="${emplist.gender}==0?'男':'女'"></td>
-									<td th:text="${emplist.department.departmentName}"></td>
-									<td th:text="${#dates.format(emplist.birth,'yyyy-MM-dd-HH:mm')}"></td>
-									<td >
-										<button th:text="编辑" class="btn btn-sm btn-success"></button>
-										<button th:text="删除" class="btn btn-sm btn-danger"></button>
-									</td>
-
-								</tr>
-
-							</tbody>
-						</table>
-					</div>
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</form>
 				</main>
 			</div>
 		</div>
