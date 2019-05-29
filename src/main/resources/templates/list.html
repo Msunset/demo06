@@ -75,7 +75,7 @@
 									<td th:text="${emplist.department.departmentName}"></td>
 									<td th:text="${#dates.format(emplist.birth,'yyyy-MM-dd-HH:mm')}"></td>
 									<td >
-										<button th:text="编辑" class="btn btn-sm btn-success"></button>
+										<a th:text="编辑" class="btn btn-sm btn-success" th:href="@{/user/editPage/}+${emplist.id}"></a>
 										<button th:text="删除" class="btn btn-sm btn-danger"></button>
 									</td>
 

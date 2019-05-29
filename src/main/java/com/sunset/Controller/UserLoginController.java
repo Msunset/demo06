@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
@@ -24,20 +22,44 @@ public class UserLoginController {
     EmployeeDao employeeDao;
     @Autowired
     DepartmentDao departmentDao;
+    @PutMapping("/addInfo")
+    public String editSub(Employee employee){
+        System.out.println("提交的信息："+employee);
+        employeeDao.save(employee);
+        return "redirect:/user/list";
+    }
+
+    //跳转到编辑页面
+    @GetMapping("/editPage/{id}")
+    public String editPage(@PathVariable("id")Integer id,Model model){
+        Employee employee = employeeDao.get(id);
+        Collection<Department> departments = departmentDao.getDepartments();
+        model.addAttribute("deps",departments);
+        model.addAttribute("emp",employee);
+        return "addUser";
+    }
+    //添加用户信息
+    @PostMapping("/addInfo")
+    public String addInfo(Employee employee){
+        System.out.println("提交的信息："+employee);
+        employeeDao.save(employee);
+        return "redirect:/user/list";
+    }
+
+    //跳转到添加用户页面
     @RequestMapping("/addUser")
     public String addUser(Model model){
         Collection<Department> departments = departmentDao.getDepartments();
         model.addAttribute("deps",departments);
-
         return "addUser";
     }
-
+    //跳转到首页
     @RequestMapping("/main")
     public String main() {
         return "dashboard";
     }
 
-
+    //跳转到用户列表
     @RequestMapping("/list")
     public String list(Model model) {
         Collection<Employee> all = employeeDao.getAll();
@@ -45,7 +67,7 @@ public class UserLoginController {
         return "list";
 
     }
-
+    //登录的验证和页面的跳转
     @PostMapping("/login")
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,

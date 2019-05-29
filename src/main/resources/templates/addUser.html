@@ -51,21 +51,34 @@
 
 
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<form >
+					<form th:action="@{/user/addInfo}" method="post">
+						<input type="hidden" name="_method" value="put" th:if="${emp != null}"/>
 						<label >用户 id :</label>
-						<input type="text" class="form-control" id="id" placeholder="用户id"><br/>
-						<label >用户名 :</label>
-						<input type="text" class="form-control" id="lastName" placeholder="用户名"><br/>
-						<label >邮箱:</label>
-						<input type="email" class="form-control" id="email" placeholder="邮箱"><br/>
-						<label >部门:</label>
-						<select class="form-control">
-							<option th:each="dep:${deps}" th:text="${dep.departmentName}"></option>
-						</select>
-						<label >生日:</label>
-						<input type="text " class="form-control" id="birthday" placeholder="出生日期"><br/>
+						<input  name="id" type="text" class="form-control" id="id" placeholder="用户id" th:value="${emp != null}?${emp.id}"><br/>
 
-						<button type="submit" class="btn btn-primary">Submit</button>
+						<label >用户名 :</label>
+						<input name="lastName" type="text" class="form-control" id="lastName" placeholder="用户名" th:value="${emp != null}?${emp.lastName}"><br/>
+
+						<label >邮箱:</label>
+						<input name="email" type="email" class="form-control" id="email" placeholder="邮箱" th:value="${emp != null}?${emp.email}"><br/>
+
+						<div>
+						<label >性别:</label>
+						<input name="gender" type="radio"  value="1" checked="" th:checked="${emp != null}?${emp.gender ==1}">
+						<label>男</label>
+						<input name="gender" type="radio" value="0" th:checked="${emp != null}?${emp.gender ==0}">
+						<label>女</label><br>
+						</div>
+
+						<label >部门:</label>
+						<select name="department.id" class="form-control" >
+							<option th:selected="${emp != null}?${dep.id ==emp.department.id}" th:each="dep:${deps}" th:text="${dep.departmentName}" th:value="${dep.id}"></option>
+						</select>
+
+						<label >生日:</label>
+						<input name="birth" type="text" class="form-control" id="birthday" placeholder="出生日期" th:value="${emp != null}?${#dates.format(emp.birth,'yy-MM-dd hh:mm:ss')}"><br/>
+
+						<button type="submit" class="btn btn-primary" th:text="${emp != null}?'提交修改':'添加用户'">Submit</button>
 					</form>
 				</main>
 			</div>
