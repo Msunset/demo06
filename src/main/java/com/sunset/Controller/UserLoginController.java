@@ -22,6 +22,14 @@ public class UserLoginController {
     EmployeeDao employeeDao;
     @Autowired
     DepartmentDao departmentDao;
+    @DeleteMapping("/del/{id}")
+    public String delPage(@PathVariable("id") Integer id){
+        System.out.println(id);
+        employeeDao.delete(id);
+        return "redirect:/user/list";
+    }
+
+    //修改的提交
     @PutMapping("/addInfo")
     public String editSub(Employee employee){
         System.out.println("提交的信息："+employee);
